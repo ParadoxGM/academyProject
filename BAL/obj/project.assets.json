@@ -232,11 +232,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\BAL\\BAL.csproj",
+      "projectUniqueName": "D:\\rep\\BAL\\BAL.csproj",
       "projectName": "BAL",
-      "projectPath": "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\BAL\\BAL.csproj",
+      "projectPath": "D:\\rep\\BAL\\BAL.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\BAL\\obj\\",
+      "outputPath": "D:\\rep\\BAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -255,14 +255,14 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\DAL\\DAL.csproj": {
-              "projectPath": "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\DAL\\DAL.csproj"
+            "D:\\rep\\DAL\\DAL.csproj": {
+              "projectPath": "D:\\rep\\DAL\\DAL.csproj"
             },
-            "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\Models\\Models.csproj": {
-              "projectPath": "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\Models\\Models.csproj"
+            "D:\\rep\\Models\\Models.csproj": {
+              "projectPath": "D:\\rep\\Models\\Models.csproj"
             },
-            "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\Resources\\Resources.csproj": {
-              "projectPath": "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\Resources\\Resources.csproj"
+            "D:\\rep\\Resources\\Resources.csproj": {
+              "projectPath": "D:\\rep\\Resources\\Resources.csproj"
             }
           }
         }

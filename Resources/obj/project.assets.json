@@ -183,11 +183,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\Resources\\Resources.csproj",
+      "projectUniqueName": "D:\\rep\\Resources\\Resources.csproj",
       "projectName": "Resources",
-      "projectPath": "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\Resources\\Resources.csproj",
+      "projectPath": "D:\\rep\\Resources\\Resources.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\PROGRAMMING\\AcademySS\\ServiceIndustryWebSolo\\ServiceIndustryWebSolo\\Resources\\obj\\",
+      "outputPath": "D:\\rep\\Resources\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -154,7 +154,8 @@
             console.log('lokek');
             $.ajaxSetup({ cache: false });
 
-            $(".viewDialog").on("click", function (e) {
+            $(".viewDialog").on("click", function (e) 
+                console.log('');
                 e.preventDefault();
                 var div = $("<div></div>")
                     .addClass("dialog")
