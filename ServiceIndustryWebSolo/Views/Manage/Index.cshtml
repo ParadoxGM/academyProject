@@ -1,0 +1,114 @@
+﻿@using ServiceIndustryWebSolo.Models;
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+<style>
+    .user-row {
+        margin-bottom: 14px;
+    }
+
+        .user-row:last-child {
+            margin-bottom: 0;
+        }
+
+    .dropdown-user {
+        margin: 13px 0;
+        padding: 5px;
+        height: 100%;
+    }
+
+        .dropdown-user:hover {
+            cursor: pointer;
+        }
+
+    .table-user-information > tbody > tr {
+        border-top: 1px solid rgb(221, 221, 221);
+    }
+
+        .table-user-information > tbody > tr:first-child {
+            border-top: 0;
+        }
+
+
+        .table-user-information > tbody > tr > td {
+            border-top: 0;
+        }
+
+    .toppad {
+        margin-top: 20px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+            <br />
+            <br />
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                            <div class="col-md-3 col-lg-3 " align="center"> <img src="@Url.Content("~/Images/UserImgs/" + Model.Photo)" alt="Type Image" height="100%" width="100%" /> </div>
+                        <div class=" col-md-9 col-lg-9 ">
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Name)</td>
+                                        <td>@Html.DisplayFor(model => model.Name)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Surname)</td>
+                                        <td>@Html.DisplayFor(model => model.Surname)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.UserName)</td>
+                                        <td>@Html.DisplayFor(model => model.UserName)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Email)</td>
+                                        <td>@Html.DisplayFor(model => model.Email)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Phone)</td>
+                                        <td>@Html.DisplayFor(model => model.Phone)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-primary" onclick='window.location.href ="@Url.Action("ExeListByCustId","Executor",new { email = Model.Email })"' style="background-color:lightslategray;text-emphasis-color:lightgray">My Executors</button>
+                            <button class="btn btn-primary" onclick='window.location.href ="@Url.Action("ChangePassword")"' style="background-color:lightslategray; text-emphasis-color:lightgray">Change Password</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button onclick='location.href = "@Url.Action("Edit", "Manage")"' class="btn btn btn-warning"><i class="glyphicon glyphicon-edit">Edit</i></button>
+                    <span class="pull-right">
+                        <button id="deleteBut" class="btn btn btn-danger text-center"><i class="glyphicon glyphicon-remove">Delete</i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $('#deleteBut').on('click', deletes);
+
+        function deletes() {
+
+            var result = confirm('Are you sure you want to delete your account ?');
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Manage/Delete",
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+            }
+        }
+    </script>
+}

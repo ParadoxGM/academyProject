@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Converter</h2>
+@if (ViewBag.status == null)
+{
+
+}else if (ViewBag.status == "Success")
+{
+<div class="alert alert-success">@ViewBag.status</div>
+}
+else
+{
+<div class="alert alert-danger">@ViewBag.status</div>
+}
+
+<div class="">
+    <h3>Save to JSON from DB</h3>
+    <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("DBToJsonCust")"'>Save all customers</button>
+    <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("DBToJsonExe")"'>Save all executors</button>
+    <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("DBToJsonServ")"'>Save all service industries</button>
+    <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("DBToJsonServTypes")"'>Save all service industry types</button>
+</div>
+
+<h3>Save to DB from JSON</h3>
+<div class="">
+    <h2>Customers</h2>
+    <form action="~/Convert/JsonToDBCust" method="post" enctype="multipart/form-data">
+        <label for="photo">Your Json file:</label>
+        <input type="file" name="file" id="file" />
+        <input type="submit" value="Upload" />
+    </form>
+    @*<button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("JsonToDBCust")"'>Save all customers</button>*@
+    <h2> Executors</h2>
+    <form action="~/Convert/JsonToDBExe" method="post" enctype="multipart/form-data">
+        <label for="photo">Your Json file:</label>
+        <input type="file" name="file" id="file" />
+        <input type="submit" value="Upload" />
+    </form>
+    <h2> Service Industries</h2>
+    <form action="~/Convert/JsonToDBServInd" method="post" enctype="multipart/form-data">
+        <label for="photo">Your Json file:</label>
+        <input type="file" name="file" id="file" />
+        <input type="submit" value="Upload" />
+    </form>
+    <h2> Industry Types</h2>
+    <form action="~/Convert/JsonToDServIndType" method="post" enctype="multipart/form-data">
+        <label for="photo">Your Json file:</label>
+        <input type="file" name="file" id="file" />
+        <input type="submit" value="Upload" />
+    </form>
+    @*<button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("Create")"'>Save all executors</button>
+        <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("Create")"'>Save all service industries</button>
+        <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("Create")"'>Save all service industry types</button>*@
+</div>

@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "NoServTypesYet";
+}
+
+
+<h2>No service industrie types yet.</h2>
+
+<h3>Sorry... There are no service industrie types.</h3>
+
+<p>
+    @if (@HttpContext.Current.User.IsInRole("admin"))
+    {
+        <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("Create")"'>Create New</button>
+    }
+</p>
+

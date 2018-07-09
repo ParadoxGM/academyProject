@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Models.Models.ApplicationRole>
+
+@{
+    ViewBag.Title = "Roles";
+}
+
+<h2>Roles</h2>
+<h3>@Html.ActionLink("Create new role", "Create")</h3>
+<h3>@Html.ActionLink("Show all users with roles", "ShowUserRoles")</h3>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

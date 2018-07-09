@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "NoServicesYet";
+}
+
+<h2>No service Industries yet.</h2>
+
+<h3>Sorry... There are no service industries with this service industry type.</h3>
+
+<p>
+    @if (@HttpContext.Current.User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+</p>
+

@@ -1,0 +1,107 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Models.Models.Executor>
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    input[type=text] {
+        height: 20px;
+        width: 160px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 20px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+
+        input[type=text]:focus {
+            width: 100%;
+        }
+</style>
+<h2 class="page-header text-center">@ViewBag.Name Executors</h2>
+
+<p>
+    @if (Request.IsAuthenticated)
+    {
+        <button class="btn btn-default navbar-right" style="margin-right: 10px; nav-right:current" onclick='window.location.href ="@Url.Action("Create")"'>Create New</button>
+
+    }
+</p>
+@using (Html.BeginForm("Index", "Executor", FormMethod.Get))
+{
+    <div> @Html.TextBox("search", null, new { type = "text", name = "search", placeholder = "Search.." }) <input type="submit" name="submit" value="search" class="btn btn-default" /></div>
+    <b> Search Option: </b>
+    @Html.RadioButton("option", "Creation Time", new { type = "radio", name = "radio" }) <text> Creation Time </text>
+    @Html.RadioButton("option", "Price") <text> Price </text>
+    @Html.RadioButton("option", "Service Industry")<text>Service Industry</text>
+    @Html.RadioButton("option", "Customer")<text>Customer</text>
+
+}
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.ActionLink("Creation Time", "Index", new { sortOrder = ViewBag.TimeSort, option = Request.QueryString["option"], search = Request.QueryString["search"] })
+        </th>
+        <th>
+            @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSort, option = Request.QueryString["option"], search = Request.QueryString["search"] })
+        </th>
+        <th>
+            @Html.ActionLink("Service Industry", "Index", new { sortOrder = ViewBag.ServiceIndustrySort, option = Request.QueryString["option"], search = Request.QueryString["search"] })
+        </th>
+        <th>
+            @Html.ActionLink("Customer", "Index", new { sortOrder = ViewBag.CustomerSort, option = Request.QueryString["option"], search = Request.QueryString["search"] })
+        </th>
+        <th></th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="3"> Records not found </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr onclick='window.location.href ="@Url.Action("ExecutorInfo", "Executor", new { id = item.ExecutorId })"'>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationTime)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceIndustry.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                </td>
+
+                <td>
+                    @if (@HttpContext.Current.User.IsInRole("admin") || (User.Identity.Name == item.Customer.Email))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ExecutorId })
+                    }
+                    @if (@HttpContext.Current.User.IsInRole("admin") || (User.Identity.Name == item.Customer.Email))
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ExecutorId })
+                    }
+                </td>
+            </tr>
+        }
+
+    }
+
+</table>
+@Html.PagedListPager(Model, pageNumber => Url.Action("Index", new { pageNumber, option = Request.QueryString["option"], search = Request.QueryString["search"], sortOrder = Request.QueryString["sortOrder"] }))

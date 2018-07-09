@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Models.Models.ServiceIndustry>
+
+@{
+    ViewBag.Title = "Index";
+}
+@if (ViewBag.ServiceIndName == null)
+{
+    <h2 class="page-header text-center">All Service Industries</h2>
+}
+else
+{
+    <h2 class="page-header text-center">@ViewBag.ServiceIndName Services</h2>
+}
+
+    <p>
+        @if (@HttpContext.Current.User.IsInRole("admin"))
+        {
+            <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("Create")"'>Create New</button>
+            
+        }
+    </p>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.ActionLink("Service Industry", "Index", new { sortOrder = ViewBag.NameSort })
+        </th>
+        <th>
+            @Html.ActionLink("Service Industry Type", "Index", new { sortOrder = ViewBag.TypeSort })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr onclick='window.location.href ="@Url.Action("ExeListByServId", "Executor", new {typeid = item.ServiceIndustryId })"'>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.serviceIndustryType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @if (@HttpContext.Current.User.IsInRole("admin"))
+                {
+                     @Html.ActionLink("Edit", "Edit", new { id = item.ServiceIndustryId })
+                }
+                @if (@HttpContext.Current.User.IsInRole("admin"))
+                {
+                     @Html.ActionLink("Delete", "Delete", new { id = item.ServiceIndustryId })
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>

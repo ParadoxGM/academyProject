@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Models.Models.ServiceIndustryType>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    tr {
+        margin: 10px;
+        width: 23% !important;
+    }
+
+        tr:hover {
+            background-color: lightblue !important;
+        }
+</style>
+
+<h2 class="page-header text-center">Choose Service Industry Types</h2>
+
+@if (@HttpContext.Current.User.IsInRole("admin"))
+{
+    <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("Create")"'>Create New</button>
+}
+
+<table class="table table-hover">
+    @foreach (var item in Model)
+    {
+        <tr class="col-md-3 table-bordered img-rounded text-center">
+            <td class="btn-group" role="group">
+                <p>@Html.DisplayFor(modelItem => item.Name)</p>
+                <img src="@Url.Content("~/Images/Categories/" + item.Photo + ".png")" alt="Type Image" class="img-rounded center-block" style="cursor:pointer" onclick='window.location.href ="@Url.Action("ServListByTypeId", "ServiceIndustry", new {typeid = item.ServiceIndustryTypeId})"' />
+                <div style="margin-top:5px">
+                    @if (@HttpContext.Current.User.IsInRole("admin"))
+                    {
+                        <button class="btn btn-default" style="margin-left: 10px" onclick='window.location.href ="@Url.Action("Edit", new { id = item.ServiceIndustryTypeId })"'>Edit</button>
+                    }
+                    @if (@HttpContext.Current.User.IsInRole("admin"))
+                    {
+                        <button class="btn btn-default" onclick='window.location.href ="@Url.Action("Delete", new { id = item.ServiceIndustryTypeId })"'>Delete</button>
+                    }
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+

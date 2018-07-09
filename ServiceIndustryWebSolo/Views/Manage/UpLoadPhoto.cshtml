@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "UpLoadPhoto";
+}
+
+<h2>UpLoad Photo</h2>
+<div style="background-color:hsla(9, 100%, 64%, 0.2)">
+    <div style="margin-top: 20px">
+        <form action="~/Manage/Upload" method="post" enctype="multipart/form-data">
+            <label for="photo" id="photoLable" class="btn btn-default">Choose photo</label>
+            <p>Or you can choose default photos:</p>
+            <label for="photo" id="photoLable" class="btn btn-default">Choose photo</label>
+            <input type="file" name="photo" id="photo" class="btn btn-default " />
+            <input type="submit" value="Upload" class="btn btn-default" />
+        </form>
+    </div>
+</div>
+

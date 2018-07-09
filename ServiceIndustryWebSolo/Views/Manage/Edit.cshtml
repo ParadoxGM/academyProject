@@ -1,0 +1,170 @@
+﻿@model ServiceIndustryWebSolo.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+    .user-row {
+        margin-bottom: 14px;
+    }
+
+        .user-row:last-child {
+            margin-bottom: 0;
+        }
+
+    .dropdown-user {
+        margin: 13px 0;
+        padding: 5px;
+        height: 100%;
+    }
+
+        .dropdown-user:hover {
+            cursor: pointer;
+        }
+
+    .table-user-information > tbody > tr {
+        border-top: 1px solid rgb(221, 221, 221);
+    }
+
+        .table-user-information > tbody > tr:first-child {
+            border-top: 0;
+        }
+
+
+        .table-user-information > tbody > tr > td {
+            border-top: 0;
+        }
+
+    .toppad {
+        margin-top: 20px;
+    }
+
+    #photoLable {
+        cursor: pointer;
+    }
+
+    #photo {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    #hide {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+    .ui-dialog {
+        background-color: hsl(0, 0%, 71%);
+        padding: 20px;
+        width: 500px !important;
+        height: 500px !important;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div id="profileBody" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+            <br />
+            <br />
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center">
+                            <div>
+                                <img src="@Url.Content("~/Images/UserImgs/" + Model.Photo)" alt="Type Image" height="100%" width="100%" />
+                            </div>
+                            <div style="margin-top: 20px">
+                                <button class="viewDialog" data-dialog-title="Описание модели" data-link="@Url.Action("Upload")">Choose photo</button>
+                            </div>
+
+                        </div>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class=" col-md-9 col-lg-9 ">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                                            <td>
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                                            <td>
+                                                @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                                            <td>
+                                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                                            <td>
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                                            <td>
+                                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                            </td>
+                                        </tr>
+                                        @Html.HiddenFor(m => m.Photo)
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-offset-2 col-md-10 center-block">
+                                <input type="submit" value="Save" class="btn btn-default" style="margin:15px" />
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="test">
+    @Html.ActionLink("Back to Profile", "Index")
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log('lokek');
+            $.ajaxSetup({ cache: false });
+
+            $(".viewDialog").on("click", function (e) {
+                e.preventDefault();
+                var div = $("<div></div>")
+                    .addClass("dialog")
+                    .dialog({
+                        title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() },
+                        modal: true
+                    })
+                    .load($(this).attr("data-link"));
+            });
+        });
+    </script>
+}
