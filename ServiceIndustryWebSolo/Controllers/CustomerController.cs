@@ -57,7 +57,7 @@ namespace ServiceIndustryWebSolo.Controllers
 
 
         [HttpGet]
-        public ActionResult Delete(string email)//refactor
+        public ActionResult Delete(string email)
         {
             Customer c = _custManager.GetAll().Find(rc => rc.Email == email);
             

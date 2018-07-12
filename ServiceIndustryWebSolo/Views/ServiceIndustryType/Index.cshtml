@@ -27,7 +27,7 @@
     {
         <tr class="col-md-3 table-bordered img-rounded text-center">
             <td class="btn-group" role="group">
-                <p>@Html.DisplayFor(modelItem => item.Name)</p>
+                <p style="font-size:large">@Html.DisplayFor(modelItem => item.Name)</p>
                 <img src="@Url.Content("~/Images/Categories/" + item.Photo + ".png")" alt="Type Image" class="img-rounded center-block" style="cursor:pointer" onclick='window.location.href ="@Url.Action("ServListByTypeId", "ServiceIndustry", new {typeid = item.ServiceIndustryTypeId})"' />
                 <div style="margin-top:5px">
                     @if (@HttpContext.Current.User.IsInRole("admin"))

@@ -29,7 +29,7 @@ namespace BAL.Managers
         {
             try
             {
-                _unitOfWork.CustRepos.Insert(сustomer);// (ValidationManager.ValidateCustomer(сustomer));
+                _unitOfWork.CustRepos.Insert(сustomer);
                 _unitOfWork.Save();
                 return true;
             }
@@ -72,20 +72,6 @@ namespace BAL.Managers
             //}
             //return false;
         }
-
-        //private Customer UpdatingCustomer(Customer c)
-        //{
-        //    if (c.Name == "Anonym")
-        //        c.Name = "UpdatedName";
-        //    if (c.Surname == "Anonym")
-        //        c.Surname = "UpdatedSurname";
-        //    if (c.UserName == "Anonym")
-        //        c.UserName = "UpdatedUserName";
-        //    if (c.PhoneNumber == "Wrong phone number")
-        //        c.PhoneNumber = "Updated phone numb";
-        //    if (c.Email == "wrongemail@email.com")
-        //        c.Email = "updatedemail@email.com";
-        //    return c;
-        //}
+        
     }
 }

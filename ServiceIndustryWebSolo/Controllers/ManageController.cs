@@ -177,16 +177,16 @@ namespace ServiceIndustryWebSolo.Controllers
         [ActionName("Upload")]
         public ActionResult UploadConfirm(HttpPostedFileBase photo)
         {
-            string directory = @"D:\PROGRAMMING\AcademySS\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ServiceIndustryWebSolo\Images\UserImgs";
+            string directory = @"D:\rep\ServiceIndustryWebSolo\Images\UserImgs";
 
             if (photo != null && photo.ContentLength > 0)
             {
                 var fileName = Path.GetFileName(photo.FileName);
                 photo.SaveAs(Path.Combine(directory, fileName));
                 UserManager.FindById(User.Identity.GetUserId()).Photo= fileName;
+                return RedirectToAction("Edit", new { ph = photo.FileName });
             }
-            
-            return RedirectToAction("Edit",new { ph = photo.FileName });
+            return RedirectToAction("Edit");
         }
 
         private void AddErrors(IdentityResult result)

@@ -56,10 +56,13 @@
         z-index: -1;
     }
     .ui-dialog {
-        background-color: hsl(0, 0%, 71%);
+        background-color:lightblue;
+        /*background-color: hsl(0, 0%, 71%);*/
         padding: 20px;
         width: 500px !important;
         height: 500px !important;
+        border:groove;
+        border-color:darkslategrey;
     }
 </style>
 <div class="container">
@@ -79,7 +82,7 @@
                                 <img src="@Url.Content("~/Images/UserImgs/" + Model.Photo)" alt="Type Image" height="100%" width="100%" />
                             </div>
                             <div style="margin-top: 20px">
-                                <button class="viewDialog" data-dialog-title="Описание модели" data-link="@Url.Action("Upload")">Choose photo</button>
+                                <button class="viewDialog" data-dialog-title="You can choose photos or upload your own.   " data-link="@Url.Action("Upload")">Choose photo</button>
                             </div>
 
                         </div>
@@ -151,11 +154,9 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(document).ready(function () {
-            console.log('lokek');
             $.ajaxSetup({ cache: false });
 
-            $(".viewDialog").on("click", function (e) 
-                console.log('тест');
+            $(".viewDialog").on("click", function (e) {
                 e.preventDefault();
                 var div = $("<div></div>")
                     .addClass("dialog")

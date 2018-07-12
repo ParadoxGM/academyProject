@@ -30,8 +30,7 @@ namespace BAL.Managers
         {
             try
             {
-                //serviceType.Photo = "~/Images/Categories/" + serviceType.Photo + ".png";
-                _unitOfWork.ServTypeRepos.Insert(serviceType);// (ValidationManager.ValidateServiceType(serviceType));
+                _unitOfWork.ServTypeRepos.Insert(serviceType);
                 _unitOfWork.Save();
                 return true;
             }
@@ -72,7 +71,6 @@ namespace BAL.Managers
         {
             try
             {
-                //    ser.Photo = "~/Images/Categories/" + ser.Photo + ".png";
                 _unitOfWork.ServTypeRepos.Update(ser);
                 _unitOfWork.Save();
                 return true;

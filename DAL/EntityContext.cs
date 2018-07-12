@@ -13,7 +13,7 @@ namespace DAL
     public class ServiceContext : IdentityDbContext<Customer>
     {
         public ServiceContext()
-            : base("ManoliiGordDB") { }
+            : base("ManoliiGordDB1") { }
 
         public static ServiceContext Create()
         {

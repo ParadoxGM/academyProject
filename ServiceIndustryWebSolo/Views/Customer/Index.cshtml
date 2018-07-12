@@ -8,6 +8,9 @@
 
 <table class="table">
     <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -24,9 +27,6 @@
             @Html.DisplayNameFor(model => model.Phone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Photo)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.EmailConfirmed)
         </th>
         <th></th>
@@ -34,38 +34,35 @@
 
     @foreach (var item in Model)
     {
-        <tr onclick='window.location.href ="@Url.Action("ExeListByCustId", "Executor", new {email = item.Email },null)"'>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Surname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                <div class="col-md-3 col-lg-3 " align="center"> <img src="@Url.Content("~/Images/UserImgs/" + item.Photo)" alt="Type Image" height="100%" width="100%" /> </div>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailConfirmed)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                @*<button id="deleteBut" value="@item.Email">Delete</button>*@
-                @if (@HttpContext.Current.User.IsInRole("admin"))
-                {
-                    @Html.ActionLink("Delete", "Delete", new { email = item.Email })
-                }
-            </td>
-        </tr>
+    <tr onclick='window.location.href ="@Url.Action("ExeListByCustId", "Executor", new {email = item.Email },null)"'>
+        <td style="padding-right:10px !important"class="col-md-3 col-lg-3 " align="center">
+         <img src="@Url.Content("~/Images/UserImgs/" + item.Photo)" alt="Type Image" height="100" width="100" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailConfirmed)
+        </td>
+        <td>
+            @if (@HttpContext.Current.User.IsInRole("admin"))
+            {
+                @Html.ActionLink("Delete", "Delete", new { email = item.Email })
+            }
+        </td>
+    </tr>
     }
 
 </table>

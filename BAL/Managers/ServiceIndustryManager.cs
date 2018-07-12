@@ -30,7 +30,7 @@ namespace BAL.Managers
         {
             try
             {
-                _unitOfWork.ServRepos.Insert(service);//(ValidationManager.ValidateService(service));
+                _unitOfWork.ServRepos.Insert(service);
                 _unitOfWork.Save();
                 return true;
             }
@@ -89,7 +89,7 @@ namespace BAL.Managers
         
         public IEnumerable<ServiceIndustry> Sort(IEnumerable<ServiceIndustry> services, SortStateInd sortOrder)
         {
-            switch (sortOrder)//remove it to manager
+            switch (sortOrder)
             {
                 case SortStateInd.NameDesc:
                     services = services.OrderByDescending(s => s.Name);

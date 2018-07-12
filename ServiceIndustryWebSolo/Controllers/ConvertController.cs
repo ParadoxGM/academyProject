@@ -11,6 +11,8 @@ using ServiceIndustryWebSolo.Manager;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
+using ServiceIndustryWebSolo.App_Start;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace ServiceIndustryWebSolo.Controllers
 {
@@ -23,8 +25,16 @@ namespace ServiceIndustryWebSolo.Controllers
         IServiceIndustryTypeManager _servIndTypeManager;
         ICustomerManager _custManager;
         readonly string contentType = "Application/json";
-        readonly string directory = @"D:\PROGRAMMING\AcademySS\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ConvertFiles\JsonFilesForDB";
-        readonly string directoryDBToJson = @"D:\PROGRAMMING\AcademySS\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ConvertFiles\JsonsFromDB\";
+        readonly string directory = @"D:\rep\ServiceIndustryWebSolo\ConvertFiles\JsonFilesForDB\";
+        readonly string directoryDBToJson = @"D:\rep\ServiceIndustryWebSolo\ConvertFiles\JsonsFromDB\";
+
+        private ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+        }
 
         public ConvertController(ICustomerManager custManager, IExecutorManager exeManager, IServiceIndustryManager servIndManager, IServiceIndustryTypeManager servIndTypeManager)
         {
@@ -65,7 +75,7 @@ namespace ServiceIndustryWebSolo.Controllers
         }
         public ActionResult DBToJsonServ()
         {
-            JsonManager<ServiceIndustry> jman = new JsonManager<ServiceIndustry>();//remove it
+            JsonManager<ServiceIndustry> jman = new JsonManager<ServiceIndustry>();
             jman.SaveToFile(_servIndManager.GetAll(), directoryDBToJson, "ServiceIndustryFromDB");
 
             Response.ContentType = "Application/json";
@@ -85,6 +95,18 @@ namespace ServiceIndustryWebSolo.Controllers
             Response.End();
             return View("Index");
         }
+        
+        public ActionResult DBToJsonRoles()
+        {
+            JsonManager<ApplicationRole> jman = new JsonManager<ApplicationRole>();
+            jman.SaveToFile(RoleManager.Roles.ToList(), directoryDBToJson, "RolesFromDB");
+
+            Response.ContentType = "Application/json";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=RolesFromDB.json");
+            Response.TransmitFile(Server.MapPath("~/ConvertFiles/JsonsFromDB/RolesFromDB.json"));
+            Response.End();
+            return View("Index");
+        }
 
         //to db
 
@@ -100,7 +122,7 @@ namespace ServiceIndustryWebSolo.Controllers
                     file.SaveAs(Path.Combine(directory, fileName));
                 }
                 JsonManager<Customer> jman = new JsonManager<Customer>();
-                List<Customer> customers = jman.ReadFile(@"D:\PROGRAMMING\AcademySS\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ConvertFiles\JsonFilesForDB\", file.FileName);
+                List<Customer> customers = jman.ReadFile(directory, file.FileName);
 
                 foreach (Customer c in customers)
                 {
@@ -127,7 +149,7 @@ namespace ServiceIndustryWebSolo.Controllers
                     file.SaveAs(Path.Combine(directory, fileName));
                 }
                 JsonManager<Executor> jman = new JsonManager<Executor>();
-                List<Executor> customers = jman.ReadFile(@"D:\PROGRAMMING\AcademySS\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ConvertFiles\JsonFilesForDB\", file.FileName);
+                List<Executor> customers = jman.ReadFile(directory, file.FileName);
 
                 foreach (Executor c in customers)
                 {
@@ -141,7 +163,7 @@ namespace ServiceIndustryWebSolo.Controllers
             {
                 status = e.Message;
             }
-            return RedirectToAction("Index", new{statusMesage = status });
+            return RedirectToAction("Index", new { statusMesage = status });
         }
         [HttpPost]
         public ActionResult JsonToDBServInd(HttpPostedFileBase file)
@@ -155,7 +177,7 @@ namespace ServiceIndustryWebSolo.Controllers
                     file.SaveAs(Path.Combine(directory, fileName));
                 }
                 JsonManager<ServiceIndustry> jman = new JsonManager<ServiceIndustry>();
-                List<ServiceIndustry> customers = jman.ReadFile(@"D:\PROGRAMMING\AcademySS\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ConvertFiles\JsonFilesForDB\", file.FileName);
+                List<ServiceIndustry> customers = jman.ReadFile(directory, file.FileName);
 
                 foreach (ServiceIndustry c in customers)
                 {
@@ -181,11 +203,37 @@ namespace ServiceIndustryWebSolo.Controllers
                     file.SaveAs(Path.Combine(directory, fileName));
                 }
                 JsonManager<ServiceIndustryType> jman = new JsonManager<ServiceIndustryType>();
-                List<ServiceIndustryType> customers = jman.ReadFile(@"D:\PROGRAMMING\AcademySS\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ServiceIndustryWebSolo\ConvertFiles\JsonFilesForDB\", file.FileName);
+                List<ServiceIndustryType> customers = jman.ReadFile(directory, file.FileName);
 
                 foreach (ServiceIndustryType c in customers)
                 {
                     _servIndTypeManager.Create(c);
+                }
+                status = "Success";
+            }
+            catch (Exception e)
+            {
+                status = e.Message;
+            }
+            return RedirectToAction("Index", new { statusMesage = status });
+        }
+        [HttpPost]
+        public ActionResult JsonToDRoles(HttpPostedFileBase file)
+        {
+            string status;
+            try
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    file.SaveAs(Path.Combine(directory, fileName));
+                }
+                JsonManager<ApplicationRole> jman = new JsonManager<ApplicationRole>();
+                List<ApplicationRole> rs = jman.ReadFile(directory, file.FileName);
+
+                foreach (ApplicationRole c in rs)
+                {
+                    RoleManager.CreateAsync(c);
                 }
                 status = "Success";
             }

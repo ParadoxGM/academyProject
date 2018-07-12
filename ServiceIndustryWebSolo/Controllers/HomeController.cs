@@ -18,7 +18,7 @@ namespace ServiceIndustryWebSolo.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "ServiceIndustryType", null);
         }
         
         public ActionResult About()
